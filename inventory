@@ -1,3 +1,5 @@
+[example]
+192.168.1.194
 
 [web_servers]
 192.168.1.190
@@ -8,3 +10,24 @@
 [fileservers]
 192.168.1.190
 192.168.1.191 
+
+
+
+[app]
+192.168.1.190
+192.168.1.191
+
+[db]
+192.168.1.194
+
+[multi:children]
+app
+db
+
+
+#Variable for all the servers
+#[multi:vars]
+#ansible_user=vagrant
+#ansible_private_key_file = ~/.vagrant.d/insecure_private_key
+
+

@@ -1,0 +1,29 @@
+---
+
+- hosts: web_servers
+  become: true
+  
+  vars_files:
+    - vars_files.yml
+      
+
+  pre_tasks:
+    - name: UPDATE APT CACHE
+      apt:
+        update_cache=true
+        cache_valid_time=3600
+
+  handlers:
+    - name: restart solr
+      service: name=solr state=restarted
+
+  tasks:
+    - name: INSTALL JAVA
+      apt: name=openjdk-8-jdk state=present
+          
+    - name: DOWNLOAD SOLR
+      get_url:
+        #        url: "https://www.apache.org/dyn/closer.lua/solr/solr/9.9.0/solr-9.9.0.tgz"
+        url: "https://dlcdn.apache.org/solr/solr/9.9.0/solr-9.9.0.tgz"  
+        dest:  /solr/solr-9.9.0.tgz
+           
